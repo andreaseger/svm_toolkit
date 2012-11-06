@@ -1,4 +1,29 @@
+# -*- encoding: utf-8 -*-
+$:.push File.expand_path("../lib", __FILE__)
+require "svm_toolkit/version"
 
+Gem::Specification.new do |s|
+  s.name        = "svm_toolkit"
+  s.version     = SvmToolkit::VERSION
+  s.platform    = Gem::Platform::CURRENT
+  s.author      = "Peter Lane"
+  s.email       = "peter.lane@bcs.org.uk"
+  s.homepage    = "http://rubyforscientificresearch.blogspot.com/search/label/svm_toolkit"
+  s.summary     = "A JRuby wrapper around the libsvm library, with additional functionality."
+  s.license     = "GPL3"
+  s.description = <<-END
+Support-vector machines are a popular tool in data mining.  This package includes an amended version of the Java implementation of the libsvm library (version 3.11).  Additional methods and examples are provided to support standard training techniques, such as cross-validation, various alternative evaluation methods, such as overall accuracy, precision or recall, and simple visualisations. 
+END
+
+  s.has_rdoc      = true
+  #s.extra_rdoc_files << "README.txt"
+  s.files         = `git ls-files`.split("\n")
+  s.test_files    = `git ls-files -- {test,spec,features}/*`.split("\n")
+  s.executables   = `git ls-files -- bin/*`.split("\n").map{ |f| File.basename(f) }
+  s.require_paths = ["lib"]
+end
+
+=begin
 Gem::Specification.new do |s|
   s.name = "svm_toolkit"
   s.platform = Gem::Platform::CURRENT
@@ -35,4 +60,4 @@ END
   s.executables << "svm-demo"
   s.post_install_message = "'svm-demo' should now be available via your jruby path.  If not, add \n#{s.full_gem_path}/bin\n to your path."
 end
-
+=end

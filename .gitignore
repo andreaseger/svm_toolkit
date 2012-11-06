@@ -1,0 +1,6 @@
+lib/*.jar
+*.gem
+.bundle
+Gemfile.lock
+pkg/*
+tmp/*
