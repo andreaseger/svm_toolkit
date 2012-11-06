@@ -4,6 +4,6 @@ source "https://rubygems.org"
 gemspec
 
 group :test, :development do
+  gem 'rake'
   gem 'pry'
-  gem 'guard-test'
 end

@@ -27,19 +27,18 @@ $ jruby -S gem install svm\_toolkit
 * Creating Problem definitions from values supplied programmatically in arrays.
 * Rescaling of feature values.
 * Integrated cost/gamma search for model with RBF kernel.
-* Contour plot visualisation of cost/gamma search results.
 * Model provides value of w-squared for hyperplane.
 * svm-demo application, a version of the svm_toy applet which comes with libsvm.
 * Model stores indices of training instances used as support vectors.
 * User-selected evaluation techniques supported in Model#evaluate_dataset and Svm.cross_validation_search.
 * Library provides evaluation classes for OverallAccuracy, GeometricMean, ClassPrecision, ClassRecall.
+* grid search uses multiple threads.
 
 ## Planned ##
 
 * splitting problem sets for train/cross/test
 * support for sampling, SMOTE and related processes (perhaps in separate package)
 * active-learning
-* make grid search use multiple threads.
 
 # License #
 
