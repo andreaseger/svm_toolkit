@@ -71,7 +71,7 @@ module SvmToolkit
         self.model = model
         self.lowest_error = result
       end
-      results << { parameter: model.param, result: result }
+      results << { cost: model.cost, gamma: model.gamma, result: result }
       if results.size == count
         Celluloid::Actor[:grid_search].finished_collecting [self.model, self.results]
       end
