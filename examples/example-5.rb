@@ -42,7 +42,7 @@ TestSet = make_problem Dataset[3000..-1]
 Costs = [-5, -3, -1, 0, 1, 3, 5, 8, 10, 13, 15].collect {|n| 2**n}
 Gammas = [-15, -12, -8, -5, -3, -1, 1, 3, 5, 7, 9].collect {|n| 2**n}
 
-best_model = Svm.cross_validation_search(TrainingData, CrossSet, Costs, Gammas, :show_plot => true)
+best_model,_ = Svm.cross_validation_search(TrainingData, CrossSet, Costs, Gammas, :show_plot => true)
 
 puts "Test set has #{best_model.evaluate_dataset(TestSet, :evaluator => Evaluator::GeometricMean)}"
 best_model.save "best.dat"

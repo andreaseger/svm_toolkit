@@ -29,8 +29,7 @@ module SvmToolkit
         end
       end
 
-      model = wait :collecting
-      return model
+      wait :collecting
     end
     def finished_collecting *args
       signal :collecting, *args
@@ -74,7 +73,7 @@ module SvmToolkit
       end
       results << { parameter: model.param, result: result }
       if results.size == count
-        Celluloid::Actor[:grid_search].finished_collecting self.model
+        Celluloid::Actor[:grid_search].finished_collecting [self.model, self.results]
       end
     end
   end
