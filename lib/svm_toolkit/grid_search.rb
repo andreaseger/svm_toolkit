@@ -29,7 +29,8 @@ module SvmToolkit
         end
       end
 
-      wait :collecting
+      model, results = wait :collecting
+      return model, results
     end
     def finished_collecting *args
       signal :collecting, *args
