@@ -34,5 +34,6 @@ require_relative "svm_toolkit/model"
 require_relative "svm_toolkit/problem"
 # require_relative "svm_toolkit/svm"
 require_relative "svm_toolkit/grid_search"
+require_relative "svm_toolkit/doe_search"
 
 require_relative "evaluators"
