@@ -3,7 +3,7 @@ module SvmToolkit
   class Svm
     def self.doe_search(args={})
       doe_search = DoeSearch.new args.fetch(:folds) { 3 }
-      doe_search.search *args
+      doe_search.search args
     end
   end
   class DoeSearch
@@ -18,8 +18,8 @@ module SvmToolkit
       cost_max = args.fetch(:cost_max) { 15 }
       gamma_min = args.fetch(:gamma_min) { -15 }
       gamma_max = args.fetch(:gamma_max) { 9 }
-      evaluator = params.fetch(:evaluator, Evaluator::OverallAccuracy)
-      max_iterations = params.fetch(:interations) { 1 }
+      evaluator = args.fetch(:evaluator, Evaluator::OverallAccuracy)
+      max_iterations = args.fetch(:interations) { 1 }
 
       # split feature_vectors into folds
       *folds,_ = feature_vectors.each_slice(feature_vectors.size/number_of_folds).map{|set|
@@ -39,13 +39,13 @@ module SvmToolkit
           next if results.has_key?(cost: cost, gamma: gamma) # skip already tested models
           folds.each.with_index do |fold,index|
             # train SVM async
-            futures << worker.future.train fold,
-                                  Parameter.new(:svm_type => Parameter::C_SVC,
-                                                :kernel_type => Parameter::RBF,
-                                                :cost => cost,
-                                                :gamma => gamma),
-                                  folds.select.with_index{|e,ii| index!=ii }
-            }
+            futures << worker.future.train( fold,
+                                            Parameter.new(:svm_type => Parameter::C_SVC,
+                                                          :kernel_type => Parameter::RBF,
+                                                          :cost => cost,
+                                                          :gamma => gamma),
+                                            folds.select.with_index{|e,ii| index!=ii }
+                                          )
           end
         end
 
@@ -53,7 +53,7 @@ module SvmToolkit
         new_results = Hash.new { |h, k| h[k] = [] }
         futures.map { |f|
           result = f.value
-          new_results[cost: model.cost, gamma: model.gamma] << result: result
+          new_results[cost: model.cost, gamma: model.gamma] << result
         }
         # make means of all folds
         new_results = new_results.map{|k,v| {k => v.instance_eval { reduce(:+) / size.to_f }}}
