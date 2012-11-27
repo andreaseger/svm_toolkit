@@ -7,7 +7,7 @@
 #
 # Written by Peter Lane, 2011.
 
-require "svm_toolkit"
+require "../lib/svm_toolkit"
 include SvmToolkit
 
 # load letter-recognition data
@@ -45,4 +45,4 @@ Gammas = [-15, -12, -8, -5, -3, -1, 1, 3, 5, 7, 9].collect {|n| 2**n}
 best_model,_ = Svm.cross_validation_search(TrainingData, CrossSet, Costs, Gammas, :show_plot => true)
 
 puts "Test set has #{best_model.evaluate_dataset(TestSet, :evaluator => Evaluator::GeometricMean)}"
-best_model.save "best.dat"
+#best_model.save "best.dat"
