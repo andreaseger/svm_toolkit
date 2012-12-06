@@ -57,5 +57,3 @@ puts "Test set has #{best_model.evaluate_dataset(TestSet, :evaluator => Evaluato
 
 # load from string
 # Svm.load_from_string <string>
-
-
