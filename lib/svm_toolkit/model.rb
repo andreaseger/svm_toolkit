@@ -17,6 +17,12 @@
 # You should have received a copy of the GNU General Public License
 # along with svm_toolkit.  If not, see <http://www.gnu.org/licenses/>.
 
+java_import 'java.io.DataOutputStream'
+java_import 'java.io.ByteArrayOutputStream'
+java_import 'java.io.StringReader'
+java_import 'java.io.BufferedReader'
+
+
 module SvmToolkit
   class Model
     # Evaluate model on given data set (an instance of Problem), 
@@ -94,21 +100,38 @@ module SvmToolkit
     # Save model to given filename.
     # Raises IOError on any error.
     def save filename
-      begin
-        Svm.svm_save_model(filename, self)
-      rescue java.io.IOException
-        raise IOError.new "Error in saving SVM model to file"
-      end
+      Svm.svm_save_model(filename, self)
+    rescue java.io.IOException
+      raise IOError.new "Error in saving SVM model to file"
+    end
+
+    # Serialize model and return a string
+    def serialize
+      stream = ByteArrayOutputStream.new
+      do_stream = DataOutputStream.new(stream)
+      Svm.svm_save_model(do_stream, self)
+      stream.to_s
+    rescue java.io.IOException
+      raise IOError.new "Error in serializing SVM model"
+    end
+    def to_s
+      serialize
     end
 
     # Load model from given filename.
     # Raises IOError on any error.
     def self.load filename
-      begin
-        Svm.svm_load_model(filename)
-      rescue java.io.IOException
-        raise IOError.new "Error in loading SVM model from file"
-      end
+      Svm.svm_load_model(filename)
+    rescue java.io.IOException
+      raise IOError.new "Error in loading SVM model from file"
+    end
+
+    # Load model from string.
+    def self.load_from_string string
+      reader = BufferedReader.new(StringReader.new(string))
+      Svm.svm_load_model(reader)
+    rescue java.io.IOException
+      raise IOError.new "Error in loading SVM model from string"
     end
 
     #

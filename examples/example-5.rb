@@ -48,14 +48,14 @@ best_model,_ = Svm.cross_validation_search(TrainingData, CrossSet, Costs, Gammas
 puts "Test set has #{best_model.evaluate_dataset(TestSet, :evaluator => Evaluator::GeometricMean)}"
 
 # save to file
-best_model.save "best.dat"
+# best_model.save "best.dat"
 
-# or manually serialize the model and do whatever with it
-java_import 'java.io.ByteArrayOutputStream'
-java_import 'java.io.DataOutputStream'
-foo = ByteArrayOutputStream.new
-meh = DataOutputStream.new(foo)
-Svm.svm_save_model(meh, best_model)
+# serialize
+# best_model.serialize
+## OR
+# best_model.to_s
 
-# the model is now availavle in foo.to_s, e.g. lets write it into a file
-IO.write "meh.dat", foo.to_s
+# load from string
+# Svm.load_from_string <string>
+
+
