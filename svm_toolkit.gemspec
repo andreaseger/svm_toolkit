@@ -15,7 +15,6 @@ Gem::Specification.new do |s|
 Support-vector machines are a popular tool in data mining.  This package includes an amended version of the Java implementation of the libsvm library (version 3.11).  Additional methods and examples are provided to support standard training techniques, such as cross-validation, various alternative evaluation methods, such as overall accuracy, precision or recall, and simple visualisations. 
 END
 
-  s.add_dependency 'celluloid'
   s.has_rdoc      = true
   #s.extra_rdoc_files << "README.txt"
   s.files         = `git ls-files`.split("\n")
