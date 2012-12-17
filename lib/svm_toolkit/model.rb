@@ -142,6 +142,14 @@ module SvmToolkit
     end
 
     #
+    # Predict the class of given instance number in given problem and it's probabilities.
+    #
+    def predict_probability(nodes)
+      probs=Java::double[self.number_classes].new
+      return Svm.svm_predict_probability(self, nodes, probs), probs
+    end
+
+    #
     # Return the values of given instance number of given problem against 
     # each decision boundary.
     # (This is the distance of the instance from each boundary.)
